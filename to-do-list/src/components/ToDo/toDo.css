@@ -19,6 +19,16 @@ input[type=checkbox]:checked + .task {
    
   } 
 
+.taskTwo{
+  flex: 1 1 0%;
+  background-color: transparent;
+  border: 1px solid blue;
+  border-radius: 12px;
+  margin-right: 1rem;
+  color: white;
+  font-size: 40px;
+}
+
 .task{
     margin-left: 15px;
 }
@@ -26,7 +36,7 @@ input[type=checkbox]:checked + .task {
 
   .task::placeholder {
     color: black;
-    font-size: smaller;
+    
 }
 
 
@@ -41,8 +51,23 @@ input[type=checkbox]:checked + .task {
    
   }
 
+.buttons{
+  display: flex;
+  justify-content: center;
+}
+.logout{
+    border-radius: 30px;
+    padding:20px;
+    width: 300px;
+    margin-top: 25px; 
+    margin-right: 25px; 
+    font-size: x-large;
+    border: none;
+   color: black;
+   background-color: rgb(255, 173, 65);
 
-  
+
+}
  
 
 /* button{

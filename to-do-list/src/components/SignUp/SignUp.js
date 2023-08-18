@@ -2,10 +2,18 @@ import React, {useState} from 'react'
 import Header from "../Header/Header";
 import './signUp.css';
 import {useNavigate, Link} from 'react-router-dom';
+import { auth } from "../../config/firebaseConfig";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 
 
 function SignUp() {
 const navigate = useNavigate();
+
+const [form, setForm] = useState(false);
 
 const [name, setName] = useState('');
 const [email, setEmail] = useState('');
@@ -16,21 +24,49 @@ const [submitted, setSubmitted] = useState(false);
 const [error, setError] = useState(false);
 
 
+// const handleSignUp = (e) => {
+//     e.preventDefault();
+//     if (name === '' || email === '' || password === '') {
+//     setError(true);
+//     } else {
+//     setSubmitted(true);
+//     // setError(false);
+//     setPassword('')
+//     setEmail('')
+//     setName('')
+//     navigate('/todolist')
+
+//     }
+//     };
+
+
 const handleSignUp = (e) => {
-    e.preventDefault();
-    if (name === '' || email === '' || password === '') {
-    setError(true);
-    } else {
-    setSubmitted(true);
-    // setError(false);
-    setPassword('')
-    setEmail('')
-    setName('')
-    navigate('/todolist')
+  e.preventDefault();
+  // console.log('signup')
 
-    }
-    };
+  createUserWithEmailAndPassword(auth, name, email, password)
+    .then((res) => {
+      // add username as display name
+      updateProfile(auth.currentUser, { displayName: name });
+      // console.log(res.user.displayName);
 
+      // Navigate the user to HomePage after signup
+      navigate("/todolist");
+    })
+    .catch((err) => alert(err.code));
+};
+
+
+
+const handleLogin = (e) => {
+  e.preventDefault();
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then((res) => {
+      navigate("/todolist");
+    })
+    .catch((err) => alert(err.message));
+};
 
 const resetForm = () => {
         setName("")
@@ -58,6 +94,7 @@ const resetForm = () => {
     <h1>Please enter all the fields</h1>
     </div>
     );
+  
     };
 
   return (
@@ -66,19 +103,53 @@ const resetForm = () => {
 <div>
 
 
-
-
-<div>
-
-
 <Header />
 
-<form className="form">
+{/* <form className="form"> */}
 
 
 <div className="messages">
 {errorMessage()}
 </div>
+
+
+
+{form ? 
+(
+        <form className="form" onSubmit={handleLogin}>
+          <h1>Login with your email</h1>
+          <div className="form-group">
+            <input
+              type="email"
+              placeholder="Your email"
+              required
+              onChange={(e) => setEmail(e.target.value)}
+              className="input"
+              value={email}
+            />
+            <input
+              type="password"
+              placeholder="Your password"
+              required
+              onChange={(e) => setPassword(e.target.value)}
+              className="input"
+              value={password}
+            />
+          </div>
+          <button className="btn" type="submit">Login</button>
+          <p>
+            Don't have an account?{" "}
+            <span className="form-link" onClick={() => setForm(false)}>
+              Signup
+            </span>
+          </p>
+        </form>
+
+
+) : (
+
+
+  <form className="form" onSubmit={handleSignUp}>
 
 {/* Labels and inputs for form data */}
 <label className="label">Name</label>
@@ -104,15 +175,22 @@ value={password} type="password" />
 
 
 <button onClick={() => resetForm()} className="btn" type="reset"> Clear</button>
+
+<p> Have have an account?{" "} </p>
+<p className="form-link" onClick={() => setForm(true)}>
+SignIn</p>
+
 </form>
 
 
-
+)}
 </div>
 
 
-    </div>
+    // </div>
   )
+  
+
 }
 
 export default SignUp
