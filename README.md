@@ -185,3 +185,21 @@ Once you mark a task as complete it displays on the completed page.
 # Bonus
 1. Set a pending for the number of task that after left to be completed.
 2. Sign Page that saves the user information.
+3. Add a dark and light mode 
+
+
+
+# Documentation Setup
+
+1. Create a github link to your project (only do this if your project is fully complete to your liking)
+2. Take screenshots of each page(signUp, toDoList, completedTask)
+3. Link to your figma prototype
+4. Features on your application (for example: localStorage, delete task, show tasks list, edit task)
+
+5. Installation: 
+- To install and run the project locally, follow these steps:
+
+- Clone the repository: git clone 
+- Navigate to the project directory: cd in (project name)
+- Install the dependencies: npm install
+- Start the development  - server: npm start
