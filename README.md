@@ -1,4 +1,7 @@
 
+# Here is an example of the final result: 
+
+
 # React To-Do List: Project Prompt
 Our goal is to create a To Do List UI. This UI will have 6 main components:
 
